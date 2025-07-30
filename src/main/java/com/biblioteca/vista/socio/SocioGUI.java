@@ -1,13 +1,14 @@
-package com.biblioteca.vista;
+package com.biblioteca.vista.socio;
 
 import java.awt.BorderLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 public class SocioGUI extends JPanel{
 	public SocioGUI() {
 		initComponents();
-		System.out.println("entro");
 	}
 	
 	private void initComponents() {
@@ -27,7 +28,8 @@ public class SocioGUI extends JPanel{
         labelNroTel = new javax.swing.JLabel();
         textNroTel = new javax.swing.JTextField();
         buttonBuscar = new javax.swing.JButton();
-        buttonNuevo = new javax.swing.JButton();
+        buttonNuevo = new javax.swing.JButton(new ImageIcon("src/main/resources/images/plus.png"));
+        buttonLimpiar = new javax.swing.JButton(new ImageIcon("src/main/resources/images/broom.png"));
         panelResultados = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableResultado = new javax.swing.JTable();
@@ -40,6 +42,8 @@ public class SocioGUI extends JPanel{
         panelFiltros.setPreferredSize(new java.awt.Dimension(1360, 180));
 
         labelNombre.setText("Nombre");
+        
+        textNombre.setPreferredSize(new java.awt.Dimension(64, 30));
 
         labelApellido.setText("Apellido");
 
@@ -48,12 +52,21 @@ public class SocioGUI extends JPanel{
         labelEmail.setText("Email");
 
         labelId.setText("Id");
+        
+        textID.setPreferredSize(new java.awt.Dimension(64, 30));
 
         labelNroTel.setText("Nro. Telefono");
 
         buttonBuscar.setText("Buscar");
 
-        buttonNuevo.setText("Nuevo");
+        //buttonNuevo.setText("N");
+        buttonNuevo.setBorder(null);
+        buttonNuevo.setContentAreaFilled(false);
+        
+        //buttonLimpiar.setText("L");
+        buttonLimpiar.setBorder(null);
+        buttonLimpiar.setContentAreaFilled(false);
+        buttonLimpiar.setToolTipText("Limpiar filtros");
 
         javax.swing.GroupLayout panelFiltrosLayout = new javax.swing.GroupLayout(panelFiltros);
         panelFiltros.setLayout(panelFiltrosLayout);
@@ -66,7 +79,7 @@ public class SocioGUI extends JPanel{
                     .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(textDni, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                         .addComponent(labelNombre, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(textNombre)))
+                        .addComponent(textNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(43, 43, 43)
                 .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(panelFiltrosLayout.createSequentialGroup()
@@ -75,8 +88,10 @@ public class SocioGUI extends JPanel{
                                 .addComponent(labelId)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(panelFiltrosLayout.createSequentialGroup()
-                                .addComponent(textID)
-                                .addGap(491, 491, 491)))
+                                .addComponent(textID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(450, 450, 450)))
+                        .addComponent(buttonLimpiar)
+                        .addGap(18, 18, 18)
                         .addComponent(buttonBuscar))
                     .addGroup(panelFiltrosLayout.createSequentialGroup()
                         .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,9 +105,9 @@ public class SocioGUI extends JPanel{
                         .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelNroTel)
                             .addComponent(textNroTel, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
                 .addComponent(buttonNuevo)
-                .addGap(105, 105, 105))
+                .addGap(138, 138, 138))
         );
         panelFiltrosLayout.setVerticalGroup(
             panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,62 +115,130 @@ public class SocioGUI extends JPanel{
                 .addGap(36, 36, 36)
                 .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(buttonNuevo)
-                    .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(panelFiltrosLayout.createSequentialGroup()
-                            .addComponent(labelNroTel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(textNroTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(panelFiltrosLayout.createSequentialGroup()
-                            .addComponent(labelApellido)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(textApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(panelFiltrosLayout.createSequentialGroup()
-                            .addComponent(labelNombre)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(textNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(panelFiltrosLayout.createSequentialGroup()
-                            .addComponent(labelEmail)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(textEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(panelFiltrosLayout.createSequentialGroup()
+                        .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelNombre, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(labelApellido))
+                                .addComponent(labelEmail))
+                            .addComponent(labelNroTel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(textNroTel)
+                            .addComponent(textEmail, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textApellido, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelFiltrosLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(panelFiltrosLayout.createSequentialGroup()
                                 .addComponent(labelDni)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(textDni))
                             .addGroup(panelFiltrosLayout.createSequentialGroup()
                                 .addComponent(labelId)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(textID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(panelFiltrosLayout.createSequentialGroup()
                         .addGap(30, 30, 30)
-                        .addComponent(buttonBuscar)))
-                .addContainerGap(38, Short.MAX_VALUE))
+                        .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buttonBuscar)
+                            .addComponent(buttonLimpiar))))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
+        /*javax.swing.GroupLayout panelFiltrosLayout = new javax.swing.GroupLayout(panelFiltros);
+        panelFiltros.setLayout(panelFiltrosLayout);
+        panelFiltrosLayout.setHorizontalGroup(
+            panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFiltrosLayout.createSequentialGroup()
+                .addGap(109, 109, 109)
+                .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelDni)
+                    .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(textDni, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                        .addComponent(labelNombre, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(textNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(43, 43, 43)
+                .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(panelFiltrosLayout.createSequentialGroup()
+                        .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelFiltrosLayout.createSequentialGroup()
+                                .addComponent(labelId)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(panelFiltrosLayout.createSequentialGroup()
+                                .addComponent(textID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(398, 398, 398)))
+                        .addComponent(buttonLimpiar)
+                        .addGap(18, 18, 18)
+                        .addComponent(buttonBuscar))
+                    .addGroup(panelFiltrosLayout.createSequentialGroup()
+                        .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelApellido)
+                            .addComponent(textApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(43, 43, 43)
+                        .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelEmail))
+                        .addGap(42, 42, 42)
+                        .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelNroTel)
+                            .addComponent(textNroTel, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addComponent(buttonNuevo)
+                .addGap(138, 138, 138))
+        );
+        panelFiltrosLayout.setVerticalGroup(
+            panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFiltrosLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buttonNuevo)
+                    .addGroup(panelFiltrosLayout.createSequentialGroup()
+                        .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelNombre, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(labelApellido))
+                                .addComponent(labelEmail))
+                            .addComponent(labelNroTel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(textNroTel)
+                            .addComponent(textEmail, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textApellido, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelFiltrosLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(panelFiltrosLayout.createSequentialGroup()
+                                .addComponent(labelDni)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textDni))
+                            .addGroup(panelFiltrosLayout.createSequentialGroup()
+                                .addComponent(labelId)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(panelFiltrosLayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(panelFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buttonBuscar)
+                            .addComponent(buttonLimpiar))))
+                .addContainerGap(22, Short.MAX_VALUE))
+        );*/
 
         panelResultados.setPreferredSize(new java.awt.Dimension(1360, 508));
-
-        tableResultado.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                    {null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null}
-                },
-                new String [] {
-                    "ID", "Nombre", "Apellido", "Email", "Nro. Telefono", "DNI", "Acciones"
-                }
-            ) {
-                boolean[] canEdit = new boolean [] {
-                    false, false, false, false, false, false, false
-                };
-
-                public boolean isCellEditable(int rowIndex, int columnIndex) {
-                    return canEdit [columnIndex];
-                }
-            });
+        
+        DefaultTableModel modelo = new DefaultTableModel(new Object[]{"ID", "Nombre", "Apellido", "Email", "Teléfono", "DNI", "Acciones"}, 0) {
+		    @Override
+		    public boolean isCellEditable(int row, int column) {
+		        // Solo la última columna ("Acciones") es editable
+		        return column == 6;
+		    }
+		};
+        tableResultado.setModel(modelo);
         
         jScrollPane1.setViewportView(tableResultado);
         if (tableResultado.getColumnModel().getColumnCount() > 0) {
@@ -220,6 +303,7 @@ public class SocioGUI extends JPanel{
 	//JButton
 	public javax.swing.JButton getButtonBuscar(){ return this.buttonBuscar; };
 	public javax.swing.JButton getButtonNuevo() { return this.buttonNuevo; };
+	public javax.swing.JButton getButtonLimpiar(){ return this.buttonLimpiar; }
 	
 	//JScrollPane
 	public javax.swing.JScrollPane getScrollPane(){ return this.jScrollPane1; }
@@ -238,10 +322,11 @@ public class SocioGUI extends JPanel{
     public javax.swing.JTextField getTextEmail(){ return textEmail; }
     public javax.swing.JTextField getTextId(){ return textID; }
     public javax.swing.JTextField getTextNombre(){ return textNombre; }
-    public javax.swing.JTextField getNroTel(){ return textNroTel; }
+    public javax.swing.JTextField getTextNroTel(){ return textNroTel; }
 	
 	// Variables declaration - do not modify                     
     private javax.swing.JButton buttonBuscar;
+    private javax.swing.JButton buttonLimpiar;
     private javax.swing.JButton buttonNuevo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableResultado;

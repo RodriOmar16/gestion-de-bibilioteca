@@ -4,6 +4,8 @@ import java.awt.CardLayout;
 
 import javax.swing.*;
 
+import com.biblioteca.vista.socio.SocioControllerGUI;
+
 public class SistemaGUI extends JFrame {
     private CardLayout cardLayout;
     private JPanel mainPanel;

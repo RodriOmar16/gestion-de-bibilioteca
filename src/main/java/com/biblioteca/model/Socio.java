@@ -41,5 +41,16 @@ public class Socio {
 		Socio s = (Socio) obj;
 		return (this.id == s.id && this.dni == s.dni);
 	}
-
+	
+	public String toString() {
+		String str = "";
+		str += "Id: "+this.id+"\n";
+		str += "Nombre: "+this.nombre+"\n";
+		str += "Apellido: "+this.apellido+"\n";
+		str += "Nro. Telefono: "+this.nroTel+"\n";
+		str += "Email: "+this.email+"\n";
+		str += "Documento: "+this.dni+"\n";
+		
+		return str;
+	}
 }

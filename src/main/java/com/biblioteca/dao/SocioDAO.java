@@ -12,6 +12,28 @@ import com.biblioteca.model.Socio;
 public class SocioDAO {
 
     public String insertar(Socio s) {
+    	String sqlTest = "SELECT count(*) "+
+		        		 "FROM \"GestionBiblioteca\".socios s "+
+		        		 "WHERE s.nombre = ? and "+
+		        		       "s.email = ? and "+
+		        		       "s.dni = ?";
+		try(PreparedStatement stmt = BaseDeDatos.getConexion().prepareStatement(sqlTest)){
+			stmt.setString(1,s.getNombre());
+			stmt.setString(2,s.getCorreo());
+			stmt.setInt(3, s.getDni());
+		  int cant = 0;
+		  try(ResultSet rs = stmt.executeQuery()){
+		  	rs.next(); // Solo una fila
+		      cant = rs.getInt(1);
+		      if(cant > 0 ) {
+		      		return "El socio que intentas registrar ya existe en el sistema.";
+		      }
+		  }
+		}catch(SQLException e) {
+			e.printStackTrace();
+		  return "Ocurrió un error al intentar verificar si ya existe este socio: "+e.getMessage();
+		}
+		
         String sql = "INSERT INTO \"GestionBiblioteca\".socios (nombre, apellido, dni, email, nro_telefono) VALUES (?, ?, ?, ?, ?)";
         String error = "";
         try (PreparedStatement stmt = BaseDeDatos.getConexion().prepareStatement(sql)) {
@@ -39,7 +61,7 @@ public class SocioDAO {
     }
     public String eliminar(int id) {
     	String sqlTest = "SELECT count(*) "+
-		         		 "FROM GestionBiblioteca.Socios s "+
+		         		 "FROM \"GestionBiblioteca\".socios s "+
 		         		 "WHERE s.id = ?";
 		try(PreparedStatement stmt = BaseDeDatos.getConexion().prepareStatement(sqlTest)){
 		   stmt.setInt(1, id);
@@ -47,6 +69,7 @@ public class SocioDAO {
 		   try(ResultSet rs = stmt.executeQuery()){
 		   	rs.next(); // Solo una fila
 		       cant = rs.getInt(1);
+		       System.out.println("cant: "+cant);
 		       if(cant == 0 ) {
 		       		return "No se pudo encontrar el socio con el ID: "+id+".";
 		       }
@@ -57,7 +80,7 @@ public class SocioDAO {
 		}
     	
     	String error = "",
-    		   sql   = "DELETE FROM GestionBiblioteca.Socios s WHERE s.id = ?";
+    		   sql   = "DELETE FROM \"GestionBiblioteca\".socios s WHERE s.id = ?";
     	try (PreparedStatement stmt = BaseDeDatos.getConexion().prepareStatement(sql)){
     		stmt.setInt(1, id);
     		int rowsAffected = stmt.executeUpdate();
@@ -76,7 +99,7 @@ public class SocioDAO {
     }
     public String actualizar(int id, String nombre, String apellido, String email, String nroTel, int dni) {
     	String sqlTest = "SELECT count(*) "+
-    			         "FROM GestionBiblioteca.Socios s "+
+    			         "FROM \"GestionBiblioteca\".socios s "+
     			         "WHERE s.id = ?";
     	try(PreparedStatement stmt = BaseDeDatos.getConexion().prepareStatement(sqlTest)){
             stmt.setInt(1, id);
@@ -94,7 +117,7 @@ public class SocioDAO {
     	}
     	
     	String error = "",
-     		   sql   = "UPDATE GestionBiblioteca.Socios s "+
+     		   sql   = "UPDATE \"GestionBiblioteca\".socios s "+
      		   		   "SET nombre   = ?, "+
      		   		       "apellido = ?, "+
      		   		       "email    = ?, "+
@@ -123,7 +146,7 @@ public class SocioDAO {
     }
     public ArrayList<Socio> buscarConFiltros(Map<String, Object> filtros) {
         ArrayList<Socio> socios = new ArrayList<>();
-        StringBuilder sql = new StringBuilder("SELECT * FROM GestionBiblioteca.Socios WHERE 1=1 ");
+        StringBuilder sql = new StringBuilder("SELECT * FROM \"GestionBiblioteca\".socios WHERE 1=1 ");
         ArrayList<Object> valores = new ArrayList<>();
 
         for (String campo : filtros.keySet()) {
@@ -149,7 +172,7 @@ public class SocioDAO {
                     s.setNombre(rs.getString("nombre"));
                     s.setApellido(rs.getString("apellido"));
                     s.setDni(rs.getInt("dni"));
-                    s.setCorreo(rs.getString("correo"));
+                    s.setCorreo(rs.getString("email"));
                     s.setNroTel(rs.getString("nro_telefono"));
                     socios.add(s);
                 }
@@ -162,7 +185,7 @@ public class SocioDAO {
     }
     public Socio buscar(int id) {
         Socio s = null;
-        String sql = new String("SELECT * FROM GestionBiblioteca.Socios s WHERE s.id = ? ");
+        String sql = new String("SELECT * FROM \"GestionBiblioteca\".socios s WHERE s.id = ? ");
 
         try (PreparedStatement stmt = BaseDeDatos.getConexion().prepareStatement(sql)) {
         	stmt.setInt(1, id);
@@ -181,8 +204,8 @@ public class SocioDAO {
                 s.setNombre(rs.getString("nombre"));
                 s.setApellido(rs.getString("apellido"));
                 s.setDni(rs.getInt("dni"));
-                s.setCorreo(rs.getString("correo"));
-                s.setNroTel(rs.getString("nro_tel"));
+                s.setCorreo(rs.getString("email"));
+                s.setNroTel(rs.getString("nro_telefono"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
