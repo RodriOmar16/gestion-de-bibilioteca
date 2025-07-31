@@ -158,15 +158,15 @@ public class IconCellRendererEditor extends AbstractCellEditor implements TableC
         JButton btnEliminar = crearBoton("src/main/resources/images/trash-can.png", "Eliminar");
 
         btnEditar.addActionListener(e -> {
-            int id = (int) tabla.getValueAt(row, 0);
-            Object entidad = controlador.obtenerEntidadPorId(id);
-            if (entidad == null) {
-                JOptionPane.showMessageDialog(null, "No se encontró el elemento para editar", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
-                return;
-            }
-            JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(tabla);
-            controlador.abrirEditor(parent, entidad);
-            fireEditingStopped();
+        	 int id = (int) tabla.getValueAt(row, 0);
+             Object entidad = controlador.obtenerEntidadPorId(id);
+             if (entidad == null) {
+                 JOptionPane.showMessageDialog(null, "No se encontró el elemento para editar", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
+                 return;
+             }
+             JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(tabla);
+             controlador.abrirEditor(parent, entidad);
+             fireEditingStopped();
         });
 
         btnEliminar.addActionListener(e -> {

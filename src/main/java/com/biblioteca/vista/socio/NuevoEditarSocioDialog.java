@@ -93,8 +93,13 @@ public class NuevoEditarSocioDialog extends JDialog{
         buttonGuardar = new JButton(row == 7 ? "Guardar" : "Grabar");
         this.panelPrincipal.add(buttonGuardar);
         buttonGuardar.addActionListener(e -> { 
-        	if(row == 7) guardarCambios();
-        	else grabarSocio();
+        	String accion = row == 7 ? "actualizar" : "grabar";
+        	int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas "+accion+" este elemento?", "Confirmar", JOptionPane.YES_NO_OPTION);
+            if (respuesta == JOptionPane.YES_OPTION) {
+            	if(row == 7) guardarCambios();
+            	else grabarSocio();
+            }
+        	return;
         });
         
         buttonCancelar = new JButton("Cancelar");
@@ -181,6 +186,8 @@ public class NuevoEditarSocioDialog extends JDialog{
         	JOptionPane.showMessageDialog(null, res, "Advertencia", JOptionPane.INFORMATION_MESSAGE);
 			return;
         }
-        dispose();
+        JOptionPane.showMessageDialog(null, "Socio modificado correctamente.", "Enhorabuena", JOptionPane.INFORMATION_MESSAGE);
+		dispose();
+		return;
 	}
 }
