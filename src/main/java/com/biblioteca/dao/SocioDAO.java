@@ -67,12 +67,12 @@ public class SocioDAO {
 		   stmt.setInt(1, id);
 		   int cant = 0;
 		   try(ResultSet rs = stmt.executeQuery()){
-		   	rs.next(); // Solo una fila
-		       cant = rs.getInt(1);
-		       System.out.println("cant: "+cant);
-		       if(cant == 0 ) {
-		       		return "No se pudo encontrar el socio con el ID: "+id+".";
-		       }
+		   		rs.next(); // Solo una fila
+		   		cant = rs.getInt(1);
+		   		System.out.println("cant: "+cant);
+		   		if(cant == 0 ) {
+		   			return "No se pudo encontrar el socio con el ID: "+id+".";
+		   		}
 		   }
 		}catch(SQLException e) {
 			e.printStackTrace();
