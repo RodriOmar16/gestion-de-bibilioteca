@@ -9,6 +9,8 @@ import java.util.Map;
 import com.biblioteca.db.BaseDeDatos;
 import com.biblioteca.model.Libro;
 
+import utiles.ConstruirConsulta;
+
 public class LibroDAO {
 	
 	private String actualizaStock(Libro l, int cantidad) {
@@ -243,5 +245,60 @@ public class LibroDAO {
 			error = "Ocurrió asl intentar actualizar los datos del Libro: "+e.getMessage();
 		}
 		return error;
+	}
+	public ArrayList<Libro> buscarConFiltros(Map<String, Object> filtros){
+		ArrayList<Libro> libros = new ArrayList<Libro>();
+		ArrayList<Object> valores;
+		ConstruirConsulta consulta = new ConstruirConsulta("SELECT * FROM \"GestionBiblioteca\".libros l WHERE 1 = 1");
+		StringBuilder sql;
+		
+		sql = consulta.crearConsulta(filtros);
+        valores = consulta.getValores();
+		
+        try(PreparedStatement stmt = BaseDeDatos.getConexion().prepareStatement(sql.toString())){
+        	for(int i=0; i<valores.size() ;i++) {
+        		stmt.setObject(i+1, valores.get(i));
+        	}
+        	try(ResultSet rs = stmt.executeQuery()){
+        		while(rs.next()) {
+        			Libro l = new Libro();
+        			l.setId(rs.getInt("id"));
+        			l.setNombre(rs.getString("nombre"));
+        			l.setAutor(rs.getString("autores"));
+        			l.setGenero(rs.getString("genero"));
+        			libros.add(l);
+        		}
+        	}
+        }catch(SQLException e) {
+        	e.printStackTrace();
+        	System.out.println("Error al buscar los libros.");
+        }
+        
+		return libros;
+	}
+	public Libro buscar(int id) {
+		Libro l = null;
+		String sql = "SELECT * FROM \"GestionBiblioteca\".libros l WHERE l.id = ?";
+		
+		try(PreparedStatement stmt = BaseDeDatos.getConexion().prepareStatement(sql)){
+			stmt.setInt(1, id);
+			int cant = 0;
+			try(ResultSet rs = stmt.executeQuery()){
+				rs.next();
+				cant = rs.getInt(1);
+				if(cant == 0) {
+					return l;
+				}
+				l = new Libro();
+				l.setId(rs.getInt("id"));
+				l.setNombre(rs.getString("nombre"));
+				l.setAutor(rs.getString("autores"));
+				l.setGenero(rs.getString("genero"));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return l;
 	}
 }

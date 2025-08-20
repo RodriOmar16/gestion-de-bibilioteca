@@ -9,6 +9,8 @@ import java.util.Map;
 import com.biblioteca.db.BaseDeDatos;
 import com.biblioteca.model.Socio;
 
+import utiles.ConstruirConsulta;
+
 public class SocioDAO {
 
     public String insertar(Socio s) {
@@ -146,10 +148,10 @@ public class SocioDAO {
     }
     public ArrayList<Socio> buscarConFiltros(Map<String, Object> filtros) {
         ArrayList<Socio> socios = new ArrayList<>();
-        StringBuilder sql = new StringBuilder("SELECT * FROM \"GestionBiblioteca\".socios WHERE 1=1 ");
-        ArrayList<Object> valores = new ArrayList<>();
+        StringBuilder sql;// = new StringBuilder("SELECT * FROM \"GestionBiblioteca\".socios WHERE 1=1 ");
+        ArrayList<Object> valores;// = new ArrayList<>();
 
-        for (String campo : filtros.keySet()) {
+        /*for (String campo : filtros.keySet()) {
             Object valor = filtros.get(campo);
             if (valor instanceof String) {
                 sql.append("AND ").append(campo).append(" ILIKE ? ");
@@ -158,7 +160,10 @@ public class SocioDAO {
                 sql.append("AND ").append(campo).append(" = ? ");
                 valores.add(valor);
             }
-        }
+        }*/
+        ConstruirConsulta consulta = new ConstruirConsulta("SELECT * FROM \"GestionBiblioteca\".socios WHERE 1=1 ");
+        sql = consulta.crearConsulta(filtros);
+        valores = consulta.getValores();
 
         try (PreparedStatement stmt = BaseDeDatos.getConexion().prepareStatement(sql.toString())) {
             for (int i = 0; i < valores.size(); i++) {
