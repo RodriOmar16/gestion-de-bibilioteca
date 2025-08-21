@@ -59,8 +59,8 @@ public class LibroController implements AccionFilaController{
 	@Override
 	public void abrirEditor(JFrame parent, Object entidad) {
 		Libro libro = (Libro) entidad;
-		NuevoEditarLibroDialog dialog = new NuevoEditarLibroDialog(/*parent, this, libro, "Editar"*/); 
-		//dialog.setVisible(true);
+		NuevoEditarLibroDialog dialog = new NuevoEditarLibroDialog(parent, this, libro, "Editar"); 
+		dialog.setVisible(true);
 	}
 
 }
