@@ -62,6 +62,7 @@ public class SocioGUI extends JPanel{
         //buttonNuevo.setText("N");
         buttonNuevo.setBorder(null);
         buttonNuevo.setContentAreaFilled(false);
+        buttonNuevo.setToolTipText("Nuevo libro");
         
         //buttonLimpiar.setText("L");
         buttonLimpiar.setBorder(null);

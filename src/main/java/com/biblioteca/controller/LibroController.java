@@ -21,9 +21,9 @@ public class LibroController implements AccionFilaController{
 	}
 	
 	//Methods
-	public String agregarNuevoLibro(String nombre, String autores, String genero, int cantidad) {
+	public String agregarNuevoLibro(Libro l, int cantidad/*,String nombre, String autores, String genero, int cantidad*/) {
 		String res = "";
-		Libro l = new Libro(nombre,autores,genero);
+		//Libro l = new Libro(nombre,autores,genero);
 		res = this.libroDAO.insertar(l, cantidad);		
 		return res;
 	}
@@ -33,8 +33,8 @@ public class LibroController implements AccionFilaController{
 		return res;
 	}
 	
-	public String actualizarLibro(int id, String pNom, String pAutores, String pGenero, int cantidad) {
-		String res = this.libroDAO.actualizar(id, pNom, pAutores, pGenero, cantidad);
+	public String actualizarLibro(Libro l/*int id, String pNom, String pAutores, String pGenero, int cantidad*/) {
+		String res = this.libroDAO.actualizar(l.getId(), l.getNombre(), l.getAutor(), l.getGenero(), l.getCantidad());
 		return res;
 	}
 	
@@ -59,6 +59,12 @@ public class LibroController implements AccionFilaController{
 	@Override
 	public void abrirEditor(JFrame parent, Object entidad) {
 		Libro libro = (Libro) entidad;
+		int cantidad = this.libroDAO.cantidadLibro(libro.getId());
+		if(cantidad == -1) {
+			System.out.println("Ocurrió un problema al obtener la cantidad.");
+		}else {
+			libro.setCantidad(cantidad);
+		}
 		NuevoEditarLibroDialog dialog = new NuevoEditarLibroDialog(parent, this, libro, "Editar"); 
 		dialog.setVisible(true);
 	}

@@ -301,4 +301,23 @@ public class LibroDAO {
 		
 		return l;
 	}
+	public int cantidadLibro(int id) {
+		int cant = -1;
+		String sql = "SELECT s.cantidad FROM \"GestionBiblioteca\".stock s WHERE libro_id = ?";
+		try(PreparedStatement stmt = BaseDeDatos.getConexion().prepareStatement(sql)){
+			stmt.setInt(1, id);
+			try(ResultSet rs = stmt.executeQuery()){
+				//rs.next();
+				if(rs.next()) {
+					cant = rs.getInt("cantidad");
+				}
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+			
+		}
+		
+		
+		return cant;
+	}
 }

@@ -8,6 +8,7 @@ public class Libro {
 	private String nombre;
 	private String autor;
 	private String genero;
+	private int cantidad;
 	
 	//Constructor
 	public Libro() {		
@@ -30,6 +31,9 @@ public class Libro {
 	
 	public String getGenero() { return this.genero; }
 	public void setGenero(String genero) { this.genero = genero; }
+	
+	public void setCantidad(int cant) { this.cantidad = cant; }
+	public int getCantidad() { return this.cantidad; }	
 	
 	public boolean equals(Object obj) {
 		if(this == obj) { return true; }

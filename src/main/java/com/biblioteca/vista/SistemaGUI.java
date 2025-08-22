@@ -4,6 +4,7 @@ import java.awt.CardLayout;
 
 import javax.swing.*;
 
+import com.biblioteca.vista.libro.LibroControllerGUI;
 import com.biblioteca.vista.libro.LibroGUI;
 import com.biblioteca.vista.socio.SocioControllerGUI;
 
@@ -20,8 +21,8 @@ public class SistemaGUI extends JFrame {
         mainPanel = new JPanel(cardLayout);
 
         SocioControllerGUI socioGUI = new SocioControllerGUI();
-        LibroGUI libroGUI = new LibroGUI();
-        PrestamoGUI prestamoGUI = new PrestamoGUI();
+        LibroControllerGUI libroGUI = new LibroControllerGUI();
+        PrestamoGUI prestamoGUI = new PrestamoGUI(); //recordar cambiar esto por el controller
         PanelHome home = new PanelHome();
         
         mainPanel.add(home, "Inicio");
