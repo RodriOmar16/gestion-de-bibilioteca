@@ -48,6 +48,7 @@ public class Libro {
 		str += "Nombre: "+this.nombre+"\n";
 		str += "Autor: "+this.autor+"\n";
 		str += "Genero: "+this.genero+"\n";
+		str += "Cantidad: "+this.cantidad+"\n";
 		return str;
 	}
 }

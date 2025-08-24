@@ -3,6 +3,7 @@ package com.biblioteca.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -29,7 +30,6 @@ public class LibroDAO {
 			try(ResultSet res = stmt.executeQuery()){
 				if (res.next()) {
 				    int idLibro = res.getInt("id"); // nombre exacto de la columna en tu BD
-				    System.out.println("ID del libro encontrado: " + idLibro);
 				    
 				    try(PreparedStatement stmt2 = BaseDeDatos.getConexion().prepareStatement(sqlUpdate)){
 				    	stmt2.setInt(1,cantidad);
@@ -64,7 +64,6 @@ public class LibroDAO {
 			if(rowsAffected > 1){
 				error = "Más de una fila fue afectada. Revisar.";
 			}
-			
 		}catch(SQLException e) {
 			e.printStackTrace();
 			error = "Ocurrió un error al intentar agregar en Stock: "+e.getMessage();
@@ -74,7 +73,7 @@ public class LibroDAO {
 	private String insertarStock(Libro l, int cantidad) {
 		String sqlInsert = "INSERT INTO \"GestionBiblioteca\".libros(nombre, autores, genero) values(?,?,?)",
 			   error     = "";
-		try(PreparedStatement stmt = BaseDeDatos.getConexion().prepareStatement(sqlInsert)){
+		try(PreparedStatement stmt = BaseDeDatos.getConexion().prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS)){
 			stmt.setString(1, l.getNombre());
 			stmt.setString(2, l.getAutor());
 			stmt.setString(3, l.getGenero());
@@ -85,10 +84,9 @@ public class LibroDAO {
 					if(generatedKey.next()) {
 						l.setId(generatedKey.getInt(1));
 						error = crearStock(cantidad, l.getId());
-					}
+					}else error = "Problemas al generar el nuevo id.";
 				}
-				
-			}
+			}else error = "No se insertó ningún libro.";
 		}catch(SQLException e) {
 			e.printStackTrace();
 			error = "Ocurrió un error al crear al Libro: "+e.getMessage();
@@ -99,7 +97,7 @@ public class LibroDAO {
 		String sqlTest = "SELECT count(*) "+
 						 "FROM \"GestionBiblioteca\".libros l "+
 						 "WHERE l.nombre  = ? AND " +
-						       "l.autores = ? AND "+
+						       "l.autores = ? AND " +
 						       "l.genero  = ?",
 			   error = "";
 		try(PreparedStatement stmt = BaseDeDatos.getConexion().prepareStatement(sqlTest)){
@@ -228,7 +226,7 @@ public class LibroDAO {
 			stmt.setString(1, pNom);
 			stmt.setString(2, pAutores);
 			stmt.setString(3, pGenero);
-			stmt.setInt(2, id);
+			stmt.setInt(4, id);
 			
 			int rowsAffected = stmt.executeUpdate();
 			if(rowsAffected == 0) {

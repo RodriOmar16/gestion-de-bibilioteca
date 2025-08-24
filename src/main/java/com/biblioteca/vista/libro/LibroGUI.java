@@ -140,26 +140,6 @@ public class LibroGUI extends JPanel{
 		
         jScrollPane1.setPreferredSize(new java.awt.Dimension(1259, 456));
 
-        
-        /*tablaResultado.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "ID", "Nombre", "Autores", "Género"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, true, true, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });*/
         jScrollPane1.setViewportView(tablaResultado);
 
         javax.swing.GroupLayout panelResultadosLayout = new javax.swing.GroupLayout(panelResultados);
@@ -217,6 +197,23 @@ public class LibroGUI extends JPanel{
         pack();*/
     }// </editor-fold>  
 	
+	public javax.swing.JButton getButtonBuscar(){ return this.buttonBuscar; }
+	public javax.swing.JButton getButtonLimpiar(){ return buttonLimpiar; }
+	public javax.swing.JButton getButtonNuevo(){ return buttonNuevo; }
+	
+	public javax.swing.JScrollPane getScrollPane(){ return jScrollPane1; }
+    
+	public javax.swing.JPanel getPanelFiltros(){ return panelFiltros; }
+	public javax.swing.JPanel getPanelPrincipal(){ return panelPrincipal; }
+	public javax.swing.JPanel getPanelResultado(){ return panelResultados; }
+    
+	public javax.swing.JTable getTableResultados(){ return tablaResultado; }
+    
+	public javax.swing.JTextField getTextAutor(){ return textAutor; }
+	public javax.swing.JTextField getTextGenero(){ return textGenero; } 
+	public javax.swing.JTextField getTextId(){ return textId; }
+	public javax.swing.JTextField getTextNombre(){ return textNombre; }
+    
 	 // Variables declaration - do not modify                     
     private javax.swing.JButton buttonBuscar;
     private javax.swing.JButton buttonLimpiar;

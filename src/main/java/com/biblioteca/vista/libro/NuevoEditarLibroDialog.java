@@ -86,18 +86,21 @@ public class NuevoEditarLibroDialog extends JDialog{
 		this.buttonGuardar = new JButton(row == 6 ? "Guardar" : "Grabar");
 		this.panelPrincipal.add(buttonGuardar);
 		this.buttonGuardar.addActionListener(e -> {
-			String accion = row == 5 ? "actualizar" : "grabar";
+			String accion = row == 6 ? "actualizar" : "grabar";
 			int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro que deseas "+accion+" este elemento?", "Confirmar", JOptionPane.YES_NO_OPTION);
 			if (respuesta == JOptionPane.YES_OPTION) {
-            	if(row == 5) guardarCambios();
+            	if(row == 6) guardarCambios();
             	else grabarLibro();
             }
         	return;
 		});
+		buttonCancelar = new JButton("Cancelar");
+        this.panelPrincipal.add(buttonCancelar);
+        buttonCancelar.addActionListener(e -> { dispose(); });
 	}
 	private void configGenerales() {
 		add(this.panelPrincipal, BorderLayout.CENTER);
-		setPreferredSize(new Dimension(500,350));
+		setPreferredSize(new Dimension(500,300));
 		setResizable(false);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
@@ -115,7 +118,7 @@ public class NuevoEditarLibroDialog extends JDialog{
 			return;
 		}
 		if(!esInteger(this.textCantidad.getText())) {
-			JOptionPane.showMessageDialog(null, "Ingresar una cantidad vàlida para el Libro.", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Ingresar una cantidad válida para el Libro.", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
 			return;
 		}
 		if(this.textCantidad.getText().isEmpty()) {
@@ -128,6 +131,8 @@ public class NuevoEditarLibroDialog extends JDialog{
 		this.libroOriginal.setGenero(this.textGenero.getText());
 		this.libroOriginal.setCantidad(Integer.parseInt(this.textCantidad.getText()));
 		
+		System.out.println("LibroOriginal dialog - actualizar: "+this.libroOriginal);
+		
 		String res = this.controller.actualizarLibro(this.libroOriginal/*this.libroOriginal.getId(), this.libroOriginal.getNombre(), this.libroOriginal.getAutor(), this.libroOriginal.getGenero(), this.libroOriginal.getCantidad()*/);
 		if(!res.isEmpty()) {
         	JOptionPane.showMessageDialog(null, res, "Advertencia", JOptionPane.INFORMATION_MESSAGE);
@@ -138,6 +143,7 @@ public class NuevoEditarLibroDialog extends JDialog{
 		return;
 	}
 	private void grabarLibro() {
+		this.libroOriginal = new Libro();
 		if(this.textNombre.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Se requiere ingresar Nombre del libro.", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
 			return;

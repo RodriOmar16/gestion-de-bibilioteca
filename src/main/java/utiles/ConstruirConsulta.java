@@ -18,10 +18,10 @@ public class ConstruirConsulta {
 		for (String campo : filtros.keySet()) {
             Object valor = filtros.get(campo);
             if (valor instanceof String) {
-                sql.append("AND ").append(campo).append(" ILIKE ? ");
+                sql.append(" AND ").append(campo).append(" ILIKE ? ");
                 valores.add("%" + valor + "%");
             } else {
-                sql.append("AND ").append(campo).append(" = ? ");
+                sql.append(" AND ").append(campo).append(" = ? ");
                 valores.add(valor);
             }
         }
