@@ -1,4 +1,4 @@
-package com.biblioteca.vista;
+package com.biblioteca.vista.prestamo;
 
 import javax.swing.JPanel;
 

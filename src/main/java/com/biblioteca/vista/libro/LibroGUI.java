@@ -54,6 +54,7 @@ public class LibroGUI extends JPanel{
         buttonNuevo.setToolTipText("Nuevo libro");
 
         buttonBuscar.setText("Buscar");
+        buttonBuscar.setIcon(new ImageIcon("src/main/resources/images/search.png"));
 
         //buttonLimpiar.setText("L");
         buttonLimpiar.setBorder(null);

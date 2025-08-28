@@ -6,6 +6,7 @@ import javax.swing.*;
 
 import com.biblioteca.vista.libro.LibroControllerGUI;
 import com.biblioteca.vista.libro.LibroGUI;
+import com.biblioteca.vista.prestamo.PrestamoGUI;
 import com.biblioteca.vista.socio.SocioControllerGUI;
 
 public class SistemaGUI extends JFrame {
@@ -23,7 +24,7 @@ public class SistemaGUI extends JFrame {
         SocioControllerGUI socioGUI = new SocioControllerGUI();
         LibroControllerGUI libroGUI = new LibroControllerGUI();
         PrestamoGUI prestamoGUI = new PrestamoGUI(); //recordar cambiar esto por el controller
-        PanelHome home = new PanelHome();
+        PanelHome home = new PanelHome(this);
         
         mainPanel.add(home, "Inicio");
         mainPanel.add(socioGUI, "Socio");
@@ -61,5 +62,9 @@ public class SistemaGUI extends JFrame {
         add(mainPanel);
 
         setVisible(true);
+    }
+    
+    public void mostrarVista(String nombreVista) {
+    	this.cardLayout.show(mainPanel, nombreVista);
     }
 }

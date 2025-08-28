@@ -58,6 +58,7 @@ public class SocioGUI extends JPanel{
         labelNroTel.setText("Nro. Telefono");
 
         buttonBuscar.setText("Buscar");
+        buttonBuscar.setIcon(new ImageIcon("src/main/resources/images/search.png"));
 
         //buttonNuevo.setText("N");
         buttonNuevo.setBorder(null);
